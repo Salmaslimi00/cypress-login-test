@@ -1,0 +1,33 @@
+name: Cypress Login Tests
+
+on:
+  push:
+    branches: [ main ]  # Exécuter le workflow lors de chaque push sur la branche main
+  schedule:
+    - cron: '0 6 * * *'  # Exécution automatique tous les jours à 6h UTC
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest  # Utilisation d'une machine virtuelle Ubuntu pour exécuter les tests
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Étape pour récupérer ton code depuis GitHub
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3  # Étape pour installer Node.js
+      with:
+        node-version: '18'  # Utilisation de la version 18 de Node.js (tu peux ajuster selon tes besoins)
+
+    - name: Install dependencies
+      run: npm install  # Installation des dépendances du projet (Cypress et autres)
+
+    - name: Run Cypress tests
+      run: npm run test  # Exécution des tests Cypress avec la commande définie dans package.json
+
+    - name: Upload screenshots (si échec)
+      if: failure()  # Si les tests échouent, on télécharge les captures d'écran
+      uses: actions/upload-artifact@v3
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
