@@ -22,11 +22,11 @@ jobs:
     - name: Install dependencies
       run: npm install  # Installation des dépendances du projet (Cypress et autres)
 
-    - name: Verify Cypress cache and binary
-      run: npx cypress install
-
     - name: Fix permissions on Cypress binary (optional)
       run: chmod +x ./node_modules/.bin/cypress
+
+    - name: Verify Cypress cache and binary
+      run: npx cypress install
 
     - name: Run Cypress tests
       uses: cypress-io/github-action@v6
