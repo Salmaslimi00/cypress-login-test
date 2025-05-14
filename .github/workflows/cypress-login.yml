@@ -31,7 +31,7 @@ jobs:
     - name: Run Cypress tests
       uses: cypress-io/github-action@v6
       with:
-        start: npm start  # ou ton serveur si tu en as un
+        start: npm run test  # ou ton serveur si tu en as un
         wait-on: 'http://localhost:3000'  # adapte cette URL à ton app
     #pm run test  # Exécution des tests Cypress avec la commande définie dans package.json
 
