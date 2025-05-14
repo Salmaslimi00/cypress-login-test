@@ -32,7 +32,7 @@ jobs:
       uses: cypress-io/github-action@v6
       with:
         start: npm run test  # ou ton serveur si tu en as un
-        wait-on: 'http://localhost:3000'  # adapte cette URL à ton app
+        wait-on: 'https://cardisdev2.crm4.dynamics.com/'  # adapte cette URL à ton app
     #pm run test  # Exécution des tests Cypress avec la commande définie dans package.json
 
     - name: Upload screenshots (si échec)
