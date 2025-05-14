@@ -22,8 +22,18 @@ jobs:
     - name: Install dependencies
       run: npm install  # Installation des dépendances du projet (Cypress et autres)
 
+    - name: Verify Cypress cache and binary
+      run: npx cypress install
+
+    - name: Fix permissions on Cypress binary (optional)
+      run: chmod +x ./node_modules/.bin/cypress
+
     - name: Run Cypress tests
-      run: npm run test  # Exécution des tests Cypress avec la commande définie dans package.json
+      uses: cypress-io/github-action@v6
+      with:
+        start: npm start  # ou ton serveur si tu en as un
+        wait-on: 'http://localhost:3000'  # adapte cette URL à ton app
+    #pm run test  # Exécution des tests Cypress avec la commande définie dans package.json
 
     - name: Upload screenshots (si échec)
       if: failure()  # Si les tests échouent, on télécharge les captures d'écran
